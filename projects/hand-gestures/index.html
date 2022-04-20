@@ -1,0 +1,112 @@
+<!--
+Copyright 2019 Google LLC. All Rights Reserved.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+==============================================================================
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta charset="UTF-8">
+<title>Tensorflow Web</title>
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<!--<link rel="stylesheet" type="text/css" href="style.css">-->
+
+<!-- Load TensorFlow.js -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script>
+
+<style>
+.webcam {
+	padding: 1em;
+	width: 50%;
+}
+
+.webcam-controls {
+	padding: none;
+	display: flex;
+	justify-content: right
+}
+</style>
+
+</head>
+
+<body onload="startCam()">
+  <h1>Model Training</h1>
+  <section class="top-section">
+	<div class='webcam'>
+		<video id="webcam-video" width="100%" height="100%" autoplay></video>
+		<div class="webcam-controls">
+			<button id="start-cam" onclick="startCam()">start</button>
+			<button id="stop-cam" onclick="stopCam()">stop</button>
+		</div>
+		<p id="webcam-status" width="100%"></p>
+	</div>
+	<script>
+		const webcam = document.getElementById('webcam-video')
+		const webcamStatus = document.getElementById('webcam-status')
+		const startCamBtn = document.getElementById('start-cam')
+		const stopCamBtn = document.getElementById('stop-cam')
+		
+		const startCam = async function() {
+			const tfcam = await tf.data.webcam(webcam)
+			[0, 1].map(async (_) => {
+				const img = await tfcam.capture()
+				console.log(img)
+			})
+			tfcam.stop()
+		}
+		
+		/*let startCam = function() {
+					//vendorUrl = window.URL || window.webkitURL;
+			if (navigator.mediaDevices.getUserMedia) {
+				navigator.mediaDevices.getUserMedia({audio: false, video: true})
+				.then((stream) => {
+					// work with the stream, like assigning it to a video element and playing it. 
+					// To Capture an image you can paint a reference to the video element to
+					// the canvas and then  get the image from the canvas to work with.
+					webcam.srcObject = stream
+					webcamStatus.innerText = 'Started'
+				})
+				.catch((error) => {
+					webcamStatus.innerText = error.toString()
+			   })
+			} else {
+				webcamStatus.innerText = error.toString()
+			}
+		}
+		
+		let stopCam = function() {
+			if (navigator.mediaDevices.getUserMedia) {
+				if (webcam.srcObject) {
+					webcam.srcObject.getTracks().forEach((t) => t.stop())
+					
+					webcamStatus.innerText = 'Stopped'
+				} else {
+					webcamStatus.innerText = 'Inactive'
+				}
+			} else {
+				webcamStatus.innerText = error.toString()
+			}
+		}*/
+	</script>
+  </section>
+
+  <!-- User Help  -->
+  <div id="user-help" style="visibility:hidden">
+    <!--<img src="assets/shape.svg" /><span id="user-help-text"></span>-->
+  </div>
+
+  <section id="bottom-section" class="bottom-section">
+   
+  </section>
+</body>
+</html>
