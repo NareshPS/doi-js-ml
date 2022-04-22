@@ -1,0 +1,10 @@
+.webcam {
+  padding: 1em;
+  width: 50%;
+}
+
+.webcam-controls {
+  padding: none;
+  display: flex;
+  justify-content: right
+}

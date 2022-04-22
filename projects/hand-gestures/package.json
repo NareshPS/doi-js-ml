@@ -1,0 +1,51 @@
+{
+  "name": "webcam-captures",
+  "version": "1.0.0",
+  "description": "Capture images from webcam",
+  "main": "src/listen.js",
+  "scripts": {
+    "start": "cd dist && node src/listen.js",
+    "build": "gulp build",
+    "clean": "gulp clean",
+    "local": "gulp local & nodemon -w src src/listen.js",
+    "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NareshPS/doi-js-ml.git"
+  },
+  "keywords": [
+    "experiments",
+    "deeplearning",
+    "webcam",
+    "capture",
+    "datacollection"
+  ],
+  "author": "NareshPS",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NareshPS/doi-js-ml/issues"
+  },
+  "homepage": "https://github.com/NareshPS/doi-js-ml#readme",
+  "dependencies": {
+    "@babel/preset-env": "^7.14.5",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "multer": "^1.4.4",
+    "orb-object": "^1.0.0",
+    "pino": "^6.11.3",
+    "pino-pretty": "^5.0.2",
+    "rxjs": "^7.1.0",
+    "temp": "^0.9.4",
+    "vue": "^3.1.1"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "babel-loader": "^8.2.2",
+    "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0",
+    "source-map-loader": "^3.0.0",
+    "webpack": "^5.39.1",
+    "webpack-cli": "^4.7.2"
+  }
+}

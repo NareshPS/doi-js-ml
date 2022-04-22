@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Webcam Captures</title>
+
+    <link rel="stylesheet" href="assets/styles/base.css">
+    <link rel="stylesheet" href="assets/styles/index.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+    <script src="index.js" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script>
+  </head>
+  <!-- <body onload="startCam()"> -->
+  <body id="app">
+    <header>
+      <h1>Model Training</h1>
+    </header>
+    <section class="top-section">
+      <div class='webcam'>
+        <video id="webcam-video" ref="webcam"></video>
+        <div class="webcam-controls">
+          <button id="start-cam" @click="startCam">start</button>
+          <button id="stop-cam" @click="stopCam">stop</button>
+        </div>
+        <p id="webcam-status" width="100%">{{webcamStatus}}</p>
+      </div>
+      <div>
+        <canvas id="canvas" ref="hiddenCanvas"></canvas>
+      </div>
+    </section>
+  </body>
+</html>

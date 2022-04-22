@@ -1,0 +1,312 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+body {
+	line-height: 1;
+}
+
+ol, ul {
+	list-style: none;
+}
+
+blockquote, q {
+	quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/**
+===========================
+Grid
+===========================
+*/
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+/**
+===========================
+Clearfix
+===========================
+*/
+.group::before,
+.group::after {
+  content: "";
+  display: table;
+}
+
+.group,
+.group::after {
+  clear: both;
+}
+
+/**
+===========================
+Rows
+===========================
+*/
+.row {
+	margin-left: 10vw;
+  margin-right: 10vw;
+  margin-bottom: 5vw;
+}
+
+.col-1-2 {
+  width: 50%;
+}
+
+.col-1-2:nth-child(odd) {
+	float: left;
+}
+
+.col-1-2:nth-child(even) {
+	float: right;
+}
+
+.row > h5 {
+	float: left;
+}
+
+.row > .button-container {
+	margin: .5vw;
+	padding: .5vw;
+	width: calc(1vw + 1rem);
+	height: calc(1vw + 1rem);
+
+	float: right;
+}
+
+/**
+===========================
+Forms
+===========================
+*/
+form textarea {
+	display: block;
+}
+
+form button:nth-last-of-type(1) {
+	float: left;
+}
+
+form button:last-child {
+	float: right;
+}
+
+/**
+===========================
+Asides
+===========================
+*/
+.group aside {
+	float: right;
+}
+
+/**
+===========================
+Typography
+===========================
+*/
+h1 {
+	font-size: 4rem;
+	line-height: 4rem;
+}
+
+h2 {
+	font-size: 2rem;
+	line-height: 4px;
+}
+
+h3 {
+	font-size: 1.2rem;
+	line-height: 4rem;
+}
+
+h5, figcaption, table > caption, small {
+	font-size: .8rem;
+	line-height: 1rem;
+}
+
+h5, figcaption, table > caption {
+	text-transform: uppercase;
+}
+
+button,
+figcaption,
+table th,
+table tr {
+	text-align: center;
+}
+
+button {
+	font-size: 1.1rem;
+	line-height: 1.5rem;
+
+	text-transform: uppercase;
+}
+
+h5,
+figcaption {
+	font-weight: 600;
+}
+
+/**
+==========================================
+Body
+==========================================
+*/
+*,
+*::-webkit-scrollbar-thumb,
+li,
+th {
+	border-radius: .35em;
+	border-style: solid;
+	border-color: transparent;
+	outline: none;
+}
+
+*::-webkit-scrollbar {
+	width: .75rem;
+}
+
+ul > li,
+figure > div,
+textarea,
+h5 {
+	padding: 1vw;
+}
+
+figure > figcaption {
+	padding: 0.5em 0 1em 0;
+}
+
+button {
+	border-radius: 0.20em;
+	border-width: .15em;
+	padding: .15em .5em;
+
+	margin-top: .5em;
+}
+
+textarea {
+	resize: none;
+	border-width: .1em;
+}
+
+/**
+===========================
+Tables
+===========================
+*/
+table {
+	width: 100%;
+	border-collapse: separate;
+}
+
+table caption,
+table th,
+table td {
+	border-width: 0;
+	border-spacing: 0;
+	border-radius: 0;
+}
+
+table caption {
+	padding: .5em 0 1em 0;
+}
+
+table th,
+table td {
+	padding: 0.25em 0 0.25em 0;
+}
+
+table caption:first-child {
+	border-top-left-radius: 0.35em;
+	border-top-right-radius: 0.35em;
+}
+
+/* Foot */
+tfoot > tr:last-of-type td:first-of-type {
+	border-bottom-left-radius: 0.35em;
+}
+
+tfoot > tr:last-of-type td:last-of-type {
+	border-bottom-right-radius: 0.35em;
+}
+
+tfoot > tr {
+	height: 1.5em;
+	line-height: 1.5em;
+}
+
+/**
+===========================
+Base Classes
+===========================
+*/
+.center {
+	text-align: center;
+}
+
+/**
+===========================
+Navigation
+===========================
+*/
+nav {
+	display: block;
+	float: right;
+
+	width: 100%;
+	text-align: right;
+}
+
+nav li {
+	display: inline-block;
+	padding: .5em;
+}
+
+nav li a {
+	text-transform: uppercase;
+	text-decoration: none;
+}

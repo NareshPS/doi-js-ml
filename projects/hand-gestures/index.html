@@ -23,6 +23,7 @@ limitations under the License.
 
 <!-- Load TensorFlow.js -->
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script>
+<script src="browser.js"></script>
 
 <style>
 .webcam {
@@ -39,11 +40,12 @@ limitations under the License.
 
 </head>
 
-<body onload="startCam()">
+<!-- <body onload="startCam()"> -->
+<body>
   <h1>Model Training</h1>
   <section class="top-section">
 	<div class='webcam'>
-		<video id="webcam-video" width="100%" height="100%" autoplay></video>
+		<video id="webcam-video" width="100%" height="100%"></video>
 		<div class="webcam-controls">
 			<button id="start-cam" onclick="startCam()">start</button>
 			<button id="stop-cam" onclick="stopCam()">stop</button>
@@ -55,58 +57,67 @@ limitations under the License.
 		const webcamStatus = document.getElementById('webcam-status')
 		const startCamBtn = document.getElementById('start-cam')
 		const stopCamBtn = document.getElementById('stop-cam')
+		const hiddenCanvas = document.createElement('canvas')
+		const webcamDiv = document.getElementsByClassName('webcam')[0]
+		webcamDiv.appendChild(hiddenCanvas)
+		
+		let TFCAM = undefined
 		
 		const startCam = async function() {
-			const tfcam = await tf.data.webcam(webcam)
-			[0, 1].map(async (_) => {
-				const img = await tfcam.capture()
-				console.log(img)
-			})
-			tfcam.stop()
-		}
-		
-		/*let startCam = function() {
-					//vendorUrl = window.URL || window.webkitURL;
-			if (navigator.mediaDevices.getUserMedia) {
-				navigator.mediaDevices.getUserMedia({audio: false, video: true})
-				.then((stream) => {
-					// work with the stream, like assigning it to a video element and playing it. 
-					// To Capture an image you can paint a reference to the video element to
-					// the canvas and then  get the image from the canvas to work with.
-					webcam.srcObject = stream
-					webcamStatus.innerText = 'Started'
+			const snapshots = [0]
+			console.log('click')
+			TFCAM = TFCAM || await tf.data.webcam(webcam)
+			snapshots.map(async (_) => {
+				const capture = await TFCAM.capture()
+				
+				// imageFromCapture(capture, (image) => uploadCapture(image))
+				imageFromCapture(capture, (dataUrl) => uploadDataUrl(dataUrl))
+				.then(_ => {
+					webcamStatus.innerHTML = 'Started'
 				})
-				.catch((error) => {
-					webcamStatus.innerText = error.toString()
-			   })
+
+				// const image = await imageFromCapture(await capture.buffer())
+				// console.log(image)
+			})
+		}
+
+		const stopCam = async () => {
+			// const tfcam = await tf.data.webcam(webcam)
+			if (TFCAM) {
+				TFCAM.stop()
+				TFCAM = undefined
+
+				webcamStatus.innerText = "Stopped"
 			} else {
-				webcamStatus.innerText = error.toString()
+				webcamStatus.innerText = "Not started"
 			}
 		}
-		
-		let stopCam = function() {
-			if (navigator.mediaDevices.getUserMedia) {
-				if (webcam.srcObject) {
-					webcam.srcObject.getTracks().forEach((t) => t.stop())
-					
-					webcamStatus.innerText = 'Stopped'
-				} else {
-					webcamStatus.innerText = 'Inactive'
-				}
-			} else {
-				webcamStatus.innerText = error.toString()
-			}
-		}*/
+
+		const imageFromCapture = async (data, fn) => {
+			return  tf.browser.toPixels(data, hiddenCanvas)
+			.then(async (pixels) => {
+				const dataUrl = hiddenCanvas.toDataURL('image/png')
+
+				fn(dataUrl)
+			})
+		}
+
+		const uploadDataUrl = (dataUrl) => {
+			const data = new FormData()
+			data.append('image', dataUrl)
+      fetch(
+				'http://localhost:8080/uploadImage/',
+				{ method:'POST', body: data}
+			)
+			.then(async (res) => {
+				webcamStatus.innerText = await res.text()
+			})
+			.catch(err => {
+				webcamStatus.innerText = err
+			})
+		}
+
 	</script>
-  </section>
-
-  <!-- User Help  -->
-  <div id="user-help" style="visibility:hidden">
-    <!--<img src="assets/shape.svg" /><span id="user-help-text"></span>-->
-  </div>
-
-  <section id="bottom-section" class="bottom-section">
-   
   </section>
 </body>
 </html>
